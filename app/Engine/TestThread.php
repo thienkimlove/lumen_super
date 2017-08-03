@@ -51,7 +51,7 @@ class TestThread extends \Thread
         $agent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->get();
 
         $trueAgent = $agent->first()->agent;
-        $userCountry = str_replace(' ',',', $virtualLog->user_country);
+        $userCountry = str_replace(' ',',', strtolower($virtualLog->user_country));
         if (strpos(',', $userCountry) !== false) {
             $userCountry = explode(',', $userCountry);
             $userCountry = $userCountry[0];
