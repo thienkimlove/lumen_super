@@ -11,7 +11,7 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
         ],
-        'azoffers' => [
+        'external' => [
             'driver' => 'mysql',
             'host' => env('DB2_HOST'),
             'database' => env('DB2_DATABASE'),

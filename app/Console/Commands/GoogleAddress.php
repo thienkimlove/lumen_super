@@ -39,7 +39,7 @@ class GoogleAddress extends Command
      */
     public function handle()
     {
-          $contents = app('db')->connection('azoffers')
+          $contents = app('db')->connection('external')
               ->table('virtual_logs')
               ->where('sent', false)
               ->orderBy('created_at', 'asc')

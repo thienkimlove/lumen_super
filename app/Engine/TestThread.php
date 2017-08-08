@@ -59,7 +59,7 @@ class TestThread extends \Thread
 
         $response = $this->virtualCurl($userCountry, $virtualLog->redirect_link, $trueAgent);
 
-        $app->db->connection('azoffers')
+        $app->db->connection('external')
             ->table('virtual_logs')
             ->where('id', $virtualLog->id)
             ->update([
