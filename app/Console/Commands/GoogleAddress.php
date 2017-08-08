@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Engine\TestThread;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class GoogleAddress extends Command
@@ -52,9 +53,13 @@ class GoogleAddress extends Command
             $stacks[] = new TestThread($content);
         }
 
+        $this->line('Start at '.Carbon::now().' with '.count($stacks));
+
         foreach ($stacks as $t) {
             $t->start(PTHREADS_INHERIT_NONE);
         }
+
+        $this->line('End at '.Carbon::now());
 
     }
 }
