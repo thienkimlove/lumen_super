@@ -39,7 +39,7 @@ class TestThread extends \Thread
                 preg_match("/location.href\s*=\s*[\"'](.*)[\"']/i", $result, $value))) {
             return $this->virtualCurl($isoCode, $value[1], $userAgent, ++$currentRedirection);
         } else {
-            return 'LastURL=' . $url . '|| HTML=' . $result;
+            return 'LastURL=' . $url;
         }
     }
 
