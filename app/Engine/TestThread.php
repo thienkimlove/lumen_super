@@ -11,16 +11,14 @@ class TestThread extends \Thread
         $this->argument = $arg;
     }
 
-    private function virtualCurl($isoCode, $offer_id, $userAgent, $currentRedirection = 0)
+    private function virtualCurl($isoCode, $url, $userAgent, $currentRedirection = 0)
     {
         $username = 'lum-customer-theway_holdings-zone-nam-country-' . strtolower($isoCode);
         $password = '99oah6sz26i5';
         $port = 22225;
         $session = mt_rand();
         $super_proxy = 'zproxy.luminati.io';
-
-        $url = env('DB2_SITE').'/check?offer_id='.$offer_id;
-
+        $url = str_replace("&amp;", "&", urldecode(trim($url)));
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_PROXY, "http://$super_proxy:$port");
@@ -58,8 +56,8 @@ class TestThread extends \Thread
             $userCountry = explode(',', $userCountry);
             $userCountry = $userCountry[0];
         }
-
-        $response = $this->virtualCurl($userCountry, $virtualLog->offer_id, $trueAgent);
+        $link = env('DB2_SITE').'/check?offer_id='.$virtualLog->offer_id;
+        $response = $this->virtualCurl($userCountry, $link, $trueAgent);
 
         $app->db->connection('external')
             ->table('virtual_logs')
