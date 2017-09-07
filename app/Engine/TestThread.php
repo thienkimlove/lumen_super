@@ -45,27 +45,32 @@ class TestThread extends \Thread
 
     public function run()
     {
+
         $app = require __DIR__.'/../../bootstrap/app.php';
-        $virtualLog = $this->argument;
-        $type = ($virtualLog->allow_devices > 4) ? 0 : 1;
-        $agent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->get();
+        try {
+            $virtualLog = $this->argument;
+            $type = ($virtualLog->allow_devices > 4) ? 0 : 1;
+            $agent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->get();
 
-        $trueAgent = $agent->first()->agent;
-        $userCountry = str_replace(' ',',', strtolower($virtualLog->user_country));
-        if (strpos(',', $userCountry) !== false) {
-            $userCountry = explode(',', $userCountry);
-            $userCountry = $userCountry[0];
+            $trueAgent = $agent->first()->agent;
+            $userCountry = str_replace(' ',',', strtolower($virtualLog->user_country));
+            if (strpos(',', $userCountry) !== false) {
+                $userCountry = explode(',', $userCountry);
+                $userCountry = $userCountry[0];
+            }
+            $link = env('DB2_SITE').'/check?offer_id='.$virtualLog->offer_id;
+            $response = $this->virtualCurl($userCountry, $link, $trueAgent);
+
+            $app->db->connection('external')
+                ->table('virtual_logs')
+                ->where('id', $virtualLog->id)
+                ->update([
+                    'user_agent' => $trueAgent,
+                    'response' => $response,
+                    'sent' => true
+                ]);
+        } catch (\Exception $e) {
+            @file_put_contents(storage_path('logs/thread.log'), $e->getMessage(), FILE_APPEND);
         }
-        $link = env('DB2_SITE').'/check?offer_id='.$virtualLog->offer_id;
-        $response = $this->virtualCurl($userCountry, $link, $trueAgent);
-
-        $app->db->connection('external')
-            ->table('virtual_logs')
-            ->where('id', $virtualLog->id)
-            ->update([
-                'user_agent' => $trueAgent,
-                'response' => $response,
-                'sent' => true
-            ]);
     }
 }
