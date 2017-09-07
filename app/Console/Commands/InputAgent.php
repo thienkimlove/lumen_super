@@ -37,8 +37,8 @@ class InputAgent extends Command
      */
     public function handle()
     {
-       $ios = resource_path('agents/ios.txt');
-       $android = resource_path('agents/android.txt');
+       $ios = resource_path('agents/ios2.txt');
+       //$android = resource_path('agents/android.txt');
 
        $iosLines = file($ios, FILE_IGNORE_NEW_LINES);
        foreach ($iosLines as $iosLine) {
@@ -49,7 +49,7 @@ class InputAgent extends Command
                ]);
            }
        }
-        $androidLines = file($android, FILE_IGNORE_NEW_LINES);
+       /* $androidLines = file($android, FILE_IGNORE_NEW_LINES);
         foreach ($androidLines as $androidLine) {
             if ($androidLine) {
                 app('db')->table('agents')->insert([
@@ -57,7 +57,7 @@ class InputAgent extends Command
                     'type' => 1
                 ]);
             }
-        }
+        }*/
 
     }
 }
