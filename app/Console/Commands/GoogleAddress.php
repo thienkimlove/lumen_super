@@ -49,14 +49,15 @@ class GoogleAddress extends Command
 
           $stacks = [];
 
-        foreach ($contents as $content) {
-            $stacks[] = new TestThread($content);
+        foreach ($contents as $k => $content) {
+            $stacks[$k] = new TestThread($content);
+            $stacks[$k]->start(PTHREADS_INHERIT_NONE);
         }
 
         $this->line('Start at '.Carbon::now().' with '.count($stacks));
 
         foreach ($stacks as $t) {
-            $t->start(PTHREADS_INHERIT_NONE);
+            $t->join();
         }
 
         $this->line('End at '.Carbon::now());
