@@ -26,6 +26,8 @@ class TestThread extends \Thread
         curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
         curl_setopt($curl, CURLOPT_MAXREDIRS, 10);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT ,0);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30); //timeout in seconds
 
         $result = curl_exec($curl);
         curl_close($curl);
