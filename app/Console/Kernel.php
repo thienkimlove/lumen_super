@@ -4,6 +4,8 @@ namespace App\Console;
 
 use App\Console\Commands\GoogleAddress;
 use App\Console\Commands\InputAgent;
+use App\Console\Commands\InsertInto;
+use App\Console\Commands\RunManual;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -17,6 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         InputAgent::class,
         GoogleAddress::class,
+        InsertInto::class,
+        RunManual::class,
     ];
 
     /**
