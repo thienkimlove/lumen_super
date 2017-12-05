@@ -44,7 +44,7 @@ class GoogleAddress extends Command
               ->table('virtual_logs')
               ->where('sent', false)
               ->orderBy('created_at', 'asc')
-              ->limit(2000)
+              ->limit(500)
               ->get();
 
           $stacks = [];
