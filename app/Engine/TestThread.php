@@ -49,23 +49,23 @@ class TestThread extends \Thread
     {
         $app = require __DIR__.'/../../bootstrap/app.php';
         $virtualLog = $this->argument;
-        $type = ($virtualLog->allow_devices > 4) ? 0 : 1;
+        $type = ($virtualLog->allow > 4) ? 0 : 1;
         $agent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->get();
 
         $trueAgent = $agent->first()->agent;
-        $userCountry = str_replace(' ',',', strtolower($virtualLog->user_country));
+        $userCountry = str_replace(' ',',', strtolower($virtualLog->country));
         if (strpos(',', $userCountry) !== false) {
             $userCountry = explode(',', $userCountry);
             $userCountry = $userCountry[0];
         }
-        $link = env('DB2_SITE').'/check?offer_id='.$virtualLog->offer_id;
+        $link = $virtualLog->link;
         $response = $this->virtualCurl($userCountry, $link, $trueAgent);
 
         $app->db->connection('external')
-            ->table('virtual_logs')
+            ->table('logs')
             ->where('id', $virtualLog->id)
             ->update([
-                'user_agent' => $trueAgent,
+                'agent' => $trueAgent,
                 'response' => $response,
                 'sent' => true
             ]);

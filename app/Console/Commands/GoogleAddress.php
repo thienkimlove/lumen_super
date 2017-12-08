@@ -41,10 +41,11 @@ class GoogleAddress extends Command
     public function handle()
     {
           $contents = app('db')->connection('external')
-              ->table('virtual_logs')
-              ->where('sent', false)
+              ->table('logs')
+              ->whereNull('sent')
+              ->orWhere('sent', false)
               ->orderBy('created_at', 'asc')
-              ->limit(500)
+              ->limit(2500)
               ->get();
 
           $stacks = [];

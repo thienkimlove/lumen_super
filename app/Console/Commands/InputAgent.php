@@ -37,10 +37,13 @@ class InputAgent extends Command
      */
     public function handle()
     {
-       $ios = resource_path('agents/ios2.txt');
+       $ios = resource_path('agents/ios3.txt');
        //$android = resource_path('agents/android.txt');
 
        $iosLines = file($ios, FILE_IGNORE_NEW_LINES);
+
+        app('db')->table('agents')->where('type', 0)->delete();
+
        foreach ($iosLines as $iosLine) {
            if ($iosLine) {
                app('db')->table('agents')->insert([

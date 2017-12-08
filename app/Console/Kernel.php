@@ -19,8 +19,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         InputAgent::class,
         GoogleAddress::class,
-        InsertInto::class,
-        RunManual::class,
     ];
 
     /**
