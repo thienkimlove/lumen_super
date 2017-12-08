@@ -44,7 +44,7 @@ class GoogleAddress extends Command
               ->table('logs')
               ->whereNull('sent')
               ->orWhere('sent', false)
-              ->orderBy('created_at', 'asc')
+              ->orderBy('id', 'asc')
               ->limit(2500)
               ->get();
 
