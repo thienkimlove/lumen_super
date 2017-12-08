@@ -14,7 +14,7 @@ return [
         ],
         'external' => [
             'driver' => 'mysql',
-            'host' => '103.7.41.141',
+            'host' => '115.146.127.8',
             'database' => 'virtuals',
             'username' => 'tieungao',
             'password' => 'tieungao123',
