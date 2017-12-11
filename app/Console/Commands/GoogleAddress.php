@@ -45,7 +45,7 @@ class GoogleAddress extends Command
               ->whereNull('sent')
               ->orWhere('sent', false)
               ->orderBy('id', 'asc')
-              ->limit(200)
+              ->limit(300)
               ->get();
 
           $stacks = [];
