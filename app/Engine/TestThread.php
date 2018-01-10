@@ -32,7 +32,7 @@ class TestThread extends \Thread
         $result = curl_exec($curl);
         curl_close($curl);
 
-        if ($currentRedirection < 10 &&
+        if ($currentRedirection < 6 &&
             isset($result) &&
             is_string($result) &&
             (preg_match("/window.location.replace('(.*)')/i", $result, $value) ||
@@ -50,9 +50,14 @@ class TestThread extends \Thread
         $app = require __DIR__.'/../../bootstrap/app.php';
         $virtualLog = $this->argument;
         $type = ($virtualLog->allow > 4) ? 0 : 1;
-        $agent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->get();
 
-        $trueAgent = $agent->first()->agent;
+        if ($app->cache->has('agents'.$type)) {
+            $trueAgent = $app->cache->get('agents'.$type);
+        } else {
+            $trueAgent = $app->db->table('agents')->where('type', $type)->inRandomOrder()->limit(1)->first()->agent;
+            $app->cache->put('agents'.$type, $trueAgent, 1);
+        }
+
         $userCountry = str_replace(' ',',', strtolower($virtualLog->country));
         if (strpos(',', $userCountry) !== false) {
             $userCountry = explode(',', $userCountry);
