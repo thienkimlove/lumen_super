@@ -41,7 +41,7 @@ class TestThread extends \Thread
                 preg_match("/location.href\s*=\s*[\"'](.*)[\"']/i", $result, $value))) {
             return $this->virtualCurl($isoCode, $value[1], $userAgent, ++$currentRedirection);
         } else {
-            return 'LastURL=';
+            return 'LastURL='.$result;
         }
     }
 
@@ -72,7 +72,7 @@ class TestThread extends \Thread
             ->update([
                 'agent' => $trueAgent,
                 'response' => $response,
-                'sent' => true
+                'sent' => true,
             ]);
     }
 }
