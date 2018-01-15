@@ -9,8 +9,8 @@ return [
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
         ],
         'external' => [
             'driver' => 'mysql',
@@ -18,8 +18,8 @@ return [
             'database' => 'virtuals',
             'username' => 'tieungao',
             'password' => 'tieungao123',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
         ],
     ]
 ];
