@@ -61,7 +61,7 @@ class GoogleAddress extends Command
             $t->join();
         }
 
-        $this->line('End at '.Carbon::now());
+       // $this->line('End at '.Carbon::now());
 
     }
 }
